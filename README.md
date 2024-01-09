@@ -28,7 +28,7 @@ If you don't have `pipx` installed on your system, you can follow the official i
 ## Try it out
 ### Download an example `xxx.tfevents.xxx` file
 ```bash
-curl -OL TODO make minimal example to push to repo
+curl -OL https://github.com/rerun-io/rerun-loader-python-example-tfrecord/raw/main/events.tfevents.example
 ```
 
 ### Open in the Rerun Viewer
