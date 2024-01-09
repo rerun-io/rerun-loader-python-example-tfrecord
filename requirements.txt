@@ -1,0 +1,2 @@
+tensorflow
+rerun-sdk>=0.12.0a4
