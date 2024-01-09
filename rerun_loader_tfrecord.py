@@ -2,6 +2,7 @@
 """Example of an executable data-loader plugin for the Rerun Viewer for tensorboard files."""
 from __future__ import annotations
 
+import numpy as np
 from tensorflow.python.summary.summary_iterator import summary_iterator
 import rerun as rr  # pip install rerun-sdk
 import argparse
@@ -9,6 +10,7 @@ import os
 
 def log_tb_summary_file(filepath: str) -> None:
     """Log a tensorboard summary file to Rerun."""
+    rr.log("trest", rr.TextLog("bla"))
     for event in summary_iterator(filepath):
         if not event.HasField("summary"):
             continue
@@ -16,18 +18,25 @@ def log_tb_summary_file(filepath: str) -> None:
         rr.set_time_sequence("step", event.step)
         rr.set_time_seconds("wall_time", event.wall_time)
 
+        name = event.summary.value[0].tag
         value = event.summary.value[0]
         if value.HasField("image"):
-            name = event.summary.value[0].tag
-            image_raw = event.summary.value[0].image.encoded_image_string
+            image_raw = value.image.encoded_image_string
             rr.log(name, rr.ImageEncoded(contents=image_raw))
         elif value.HasField("simple_value"):  # scalar
-            # Scalar
-            name = event.summary.value[0].tag
-            value = event.summary.value[0].simple_value
+            value = value.simple_value
             rr.log(name, rr.TimeSeriesScalar(value))
-
-        # here we could also handle other types of data, like histograms, audio, text, etc.
+        elif value.HasField("histo"):
+            # NOTE this is not sufficiently supported by Rerun yet
+            #  see TODO link issue here
+            pass
+        elif value.HasField("tensor") and value.metadata.plugin_data.plugin_name == "text":
+            text = value.tensor.string_val
+            rr.log(name, rr.TextLog(text))
+        elif value.HasField("tensor") and value.metadata.plugin_data.plugin_name == "tensor":
+            shape = tuple(x.size for x in value.tensor.tensor_shape.dim)
+            tensor = np.array(value.tensor.float_val).reshape(shape)
+            rr.log(name, rr.Tensor(tensor))
 
 
 # The Rerun Viewer will always pass these two pieces of information:
