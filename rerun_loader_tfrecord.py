@@ -28,7 +28,7 @@ def log_tb_summary_file(filepath: str) -> None:
             rr.log(name, rr.TimeSeriesScalar(value))
         elif value.HasField("histo"):
             # NOTE this is not sufficiently supported by Rerun yet
-            #  see TODO link issue here
+            #  see https://github.com/rerun-io/rerun/issues/4764
             pass
         elif value.HasField("tensor") and value.metadata.plugin_data.plugin_name == "text":
             text = value.tensor.string_val
