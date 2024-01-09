@@ -1,8 +1,8 @@
-# rerun-loader-python-example-tfrecord
+# tfrecord -> Rerun plugin
 This is an example data-loader plugin that lets you view a TFRecord of TFEvents (i.e., tensorboard files) in the [Rerun](https://github.com/rerun-io/rerun/) Viewer.
 It uses the [external data loader mechanism](https://www.rerun.io/docs/howto/open-any-file#external-dataloaders) to add this capability to the viewer without modifying the viewer itself.
 
-TODO put video here
+https://github.com/rerun-io/rerun-loader-python-example-tfrecord/assets/9785832/912641d2-b9d8-4039-b7c9-03d3beafd2b9
 
 External data loaders are executables that are available to the Rerun Viewer via the `PATH` variable, with a name that starts with `rerun-loader-`.
 
