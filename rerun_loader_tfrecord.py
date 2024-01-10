@@ -10,7 +10,6 @@ import os
 
 def log_tb_summary_file(filepath: str) -> None:
     """Log a tensorboard summary file to Rerun."""
-    rr.log("trest", rr.TextLog("bla"))
     for event in summary_iterator(filepath):
         if not event.HasField("summary"):
             continue
