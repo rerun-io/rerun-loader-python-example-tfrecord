@@ -24,7 +24,22 @@ The most robust way to install the plugin to your `PATH` is using [pipx](https:/
 
 If you don't have `pipx` installed on your system, you can follow the official instructions [here](https://pipx.pypa.io/stable/installation/).
 
+### Installing the plugin with pipx
+Now you can install the plugin to your `PATH` using
 
+```bash
+pipx install git+https://github.com/rerun-io/rerun-loader-python-example-tfrecord.git
+pipx ensurepath
+```
+Note: you can use the `--python` argument to specify the Python interpreter to use with pipx.
+On unix-like systems `--python $(which python)` will use the currently active Python.
+
+Make sure it's installed by running it from your terminal, which should output an error and usage description:
+```bash
+rerun-loader-tfrecord
+usage: rerun-loader-tfrecord [-h] [--recording-id RECORDING_ID] filepath
+rerun-loader-tfrecord: error: the following arguments are required: filepath
+```
 ## Try it out
 ### Download an example `xxx.tfevents.xxx` file
 ```bash
