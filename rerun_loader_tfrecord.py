@@ -8,6 +8,8 @@ import os
 
 def log_tb_summary_file(filepath: str) -> None:
     """Log a tensorboard summary file to Rerun."""
+    # We defer importing numpy and summary_iterator since these are very slow
+    # and only needed in the case where we actually have a .tfrecord file
     import numpy as np
     from tensorflow.python.summary.summary_iterator import summary_iterator
     for event in summary_iterator(filepath):
