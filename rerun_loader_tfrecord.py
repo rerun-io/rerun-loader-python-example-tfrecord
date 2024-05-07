@@ -26,7 +26,7 @@ def log_tb_summary_file(filepath: str) -> None:
             rr.log(name, rr.ImageEncoded(contents=image_raw))
         elif value.HasField("simple_value"):  # scalar
             value = value.simple_value
-            rr.log(name, rr.TimeSeriesScalar(value))
+            rr.log(name, rr.Scalar(value))
         elif value.HasField("histo"):
             # NOTE this is not sufficiently supported by Rerun yet
             #  see https://github.com/rerun-io/rerun/issues/4764
